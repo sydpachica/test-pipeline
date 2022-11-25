@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        ENVIRONMENT =  'feature-branch-1'
+        BRANCH =  'feature-branch-1'
     }
 
     stages {
