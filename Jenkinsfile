@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        GIT-BRANCH='feature-branch-1'
+        GIT_BRANCH='feature-branch-1'
     }
 
     stages {
