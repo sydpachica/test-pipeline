@@ -43,13 +43,11 @@ pipeline {
             }
         }
         stage('Approved Prod Deploy') {
-            steps {
-                input {
-                    message "Deploy?"
-                    ok 'Do it!'
-                    parameters {
-                        string(name: 'TARGET ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environmen')
-                    }
+            input {
+                message "Deploy?"
+                ok 'Do it!'
+                parameters {
+                    string(name: 'TARGET ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environmen')
                 }
             }
             post {
