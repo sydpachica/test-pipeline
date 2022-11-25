@@ -43,11 +43,17 @@ pipeline {
             }
         }
         stage('Approved Prod Deploy') {
+            environment {
+                TARGET_ENVIRONMENT = 'PROD'
+            }
             input {
                 message "Deploy?"
                 ok 'Do it!'
                 parameters {
                     string(name: 'TARGET ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environmen')
+                }
+                steps {
+                    echo "Deploying to environment ${TARGET_ENVIRONMENT}" 
                 }
             }
             post {
