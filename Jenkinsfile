@@ -1,5 +1,8 @@
 pipeline {
     agent none
+    environment {
+        ENVIRONMENT =  'feature-branch-1'
+    }
 
     stages {
         stage('Build') {
@@ -39,35 +42,28 @@ pipeline {
                         writeFile file: 'ut-test-results.txt', text: 'passed'
                     }
                 }
-                post {
-                    success {
-                        archiveArtifacts 'ut-test-results.txt'
-                        archiveArtifacts 'mt-test-results.txt'
-                    }
-                }
             }
         }
         stage('Approved Prod Deploy') {
-            environment {
-                TARGET_ENVIRONMENT = 'PROD'
-            }
             input {
-                message "Deploy?"
-                ok 'Do it!'
+                message "Merge?"
+                ok 'Approve!'
                 parameters {
-                    string(name: 'TARGET ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environmen')
+                    string(name: 'TARGET BRANCH', defaultValue: "${BRANCH}", description: 'Target branch')
                 }
             }
             steps {
-                echo "Deploying to environment ${TARGET_ENVIRONMENT}" 
+                echo "Deploying to commit ${BRANCH}" 
             }
             post {
                 success {
-                    echo "Production Deploy Approved"
-                    mail bcc: '', body: 'Production Deploy Approved!!! Please disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
+                    echo "Change Integration to ${BRANCH} Approved!"
+                    mail bcc: '', body: 'Change Commit approved and merged!!! \nPlease disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
+                    archiveArtifacts 'ut-test-results.txt'
+                    archiveArtifacts 'mt-test-results.txt'
                 }
                 aborted {
-                    echo "Production Deploy Denied"
+                    echo "Change Integration Denied"
                 }
             }
         }
