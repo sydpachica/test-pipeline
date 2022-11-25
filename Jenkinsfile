@@ -1,8 +1,5 @@
 pipeline {
-    
-    environment {
-        G_BRANCH = 'feature-branch01'
-    }
+    agent none
 
     stages {
         stage('Build') {
@@ -49,15 +46,15 @@ pipeline {
                 message "Merge?"
                 ok 'Approve!'
                 parameters {
-                    string(name: "TARGET BRANCH", defaultValue: "${G_BRANCH}", description: "Target branch")
+                    string(name: "TARGET BRANCH", defaultValue: "feature-branch01", description: "Target branch")
                 }
             }
             steps {
-                echo "Deploying to commit ${G_BRANCH}" 
+                echo "Deploying to commit feature-branch01" 
             }
             post {
                 success {
-                    echo "Change Integration to ${G_BRANCH} Approved!"
+                    echo "Change Integration to feature-branch01 Approved!"
                     mail bcc: '', body: 'Change Commit approved and merged!!! \nPlease disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
                     archiveArtifacts 'ut-test-results.txt'
                     archiveArtifacts 'mt-test-results.txt'
