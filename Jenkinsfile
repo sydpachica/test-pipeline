@@ -1,11 +1,11 @@
 pipeline {
+    agent none
 
     stages {
         stage('Build') {
             agent {
                 docker {
                     image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7'
-                args  '-u devops:docker --privileged -e PATH=/tech/nvm/versions/node/v11.9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tech/Fortify/bin/:/tech/apache-ant-1.9.14/bin -v /app/maven/.m2:/home/devops/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
@@ -22,7 +22,6 @@ pipeline {
                     agent {
                         docker {
                             image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7'
-                        args  '-u devops:docker --privileged -e PATH=/tech/nvm/versions/node/v11.9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tech/Fortify/bin/:/tech/apache-ant-1.9.14/bin -v /app/maven/.m2:/home/devops/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
                         }
                     }
                     steps {
@@ -30,14 +29,12 @@ pipeline {
                         sleep 2
                     }
                 }
-                stage('Unit Test 1') {
+                stage('Unit Test 1') {                    
                     agent {
                         docker {
                             image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7'
-                        args  '-u devops:docker --privileged -e PATH=/tech/nvm/versions/node/v11.9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/tech/Fortify/bin/:/tech/apache-ant-1.9.14/bin -v /app/maven/.m2:/home/devops/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
                         }
                     }
-                    
                     steps {
                         echo 'Running ModuleTest2...'
                         sleep 2
