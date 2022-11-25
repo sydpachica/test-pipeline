@@ -1,7 +1,7 @@
 pipeline {
-    agent none
+    
     environment {
-        G_BRANCH='feature-branch-1'
+        G_BRANCH = 'feature-branch01'
     }
 
     stages {
