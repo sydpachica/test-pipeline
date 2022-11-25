@@ -13,7 +13,6 @@ pipeline {
                 echo 'Collecting resources...'
                 echo 'Building binaries...'
                 echo 'Archiving all artifacts...'
-                // mail bcc: '', body: 'Please disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
             }
         }
         stage('Test') {
@@ -59,6 +58,7 @@ pipeline {
             post {
                 success {
                     echo "Production Deploy Approved"
+                    mail bcc: '', body: 'Production Deploy Approved!!! Please disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
                 }
                 aborted {
                     echo "Production Deploy Denied"
