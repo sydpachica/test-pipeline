@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        GIT_BRANCH='feature-branch-1'
+        GIT_BRANCH = 'feature-branch-1'
     }
 
     stages {
@@ -49,7 +49,7 @@ pipeline {
                 message "Merge?"
                 ok 'Approve!'
                 parameters {
-                    string(name: 'TARGET BRANCH', defaultValue: "${GIT_BRANCH}", description: 'Target branch')
+                    string(name: "TARGET BRANCH", defaultValue: "${GIT_BRANCH}", description: "Target branch")
                 }
             }
             steps {
