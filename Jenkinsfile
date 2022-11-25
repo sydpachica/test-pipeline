@@ -17,6 +17,8 @@ pipeline {
             }
         }
         stage('Test') {
+            agent none
+            
             parallel {
                 stage('Module Test 1') {
                     agent {
@@ -45,6 +47,10 @@ pipeline {
         stage('Approved Prod Deploy') {
             steps {
                 input message: "Deploy?"
+                ok 'Do it!'
+                parameters {
+                    string(name: 'TARGET ENVIRONMENT', defaultValue: 'NON-PROD', 'PROD', 'PRE-PROD', description: 'Target deployment environmen')
+                }
             }
             post {
                 success {
