@@ -49,15 +49,15 @@ pipeline {
                 message "Merge?"
                 ok 'Approve!'
                 parameters {
-                    string(name: 'TARGET BRANCH', defaultValue: "${GIT-BRANCH}", description: 'Target branch')
+                    string(name: 'TARGET BRANCH', defaultValue: "${GIT_BRANCH}", description: 'Target branch')
                 }
             }
             steps {
-                echo "Deploying to commit ${GIT-BRANCH}" 
+                echo "Deploying to commit ${GIT_BRANCH}" 
             }
             post {
                 success {
-                    echo "Change Integration to ${GIT-BRANCH} Approved!"
+                    echo "Change Integration to ${GIT_BRANCH} Approved!"
                     mail bcc: '', body: 'Change Commit approved and merged!!! \nPlease disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
                     archiveArtifacts 'ut-test-results.txt'
                     archiveArtifacts 'mt-test-results.txt'
