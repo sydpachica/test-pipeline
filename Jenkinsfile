@@ -25,7 +25,7 @@ pipeline {
                     }
                     steps {
                         echo 'Running ModuleTest1...'
-                        sleep 2
+                        writeFile file: 'mt-test-results.txt', text: 'passed'
                     }
                 }
                 stage('Unit Test 1') {                    
@@ -35,8 +35,14 @@ pipeline {
                         }
                     }
                     steps {
-                        echo 'Running ModuleTest2...'
-                        sleep 2
+                        echo 'Running Unit Test 1...'
+                        writeFile file: 'ut-test-results.txt', text: 'passed'
+                    }
+                }
+                post {
+                    success {
+                        archiveArtifacts 'ut-test-results.txt'
+                        archiveArtifacts 'mt-test-results.txt'
                     }
                 }
             }
