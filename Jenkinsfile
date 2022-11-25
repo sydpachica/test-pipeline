@@ -17,8 +17,6 @@ pipeline {
             }
         }
         stage('Test') {
-            agent none
-            
             parallel {
                 stage('Module Test 1') {
                     agent {
