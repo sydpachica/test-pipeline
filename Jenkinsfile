@@ -52,9 +52,9 @@ pipeline {
                 parameters {
                     string(name: 'TARGET ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environmen')
                 }
-                steps {
-                    echo "Deploying to environment ${TARGET_ENVIRONMENT}" 
-                }
+            }
+            steps {
+                echo "Deploying to environment ${TARGET_ENVIRONMENT}" 
             }
             post {
                 success {
