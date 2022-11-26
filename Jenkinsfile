@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7'
+                    image 'alpine:latest'
                 }
             }
             steps {
