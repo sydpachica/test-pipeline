@@ -7,6 +7,7 @@ pipeline {
     environment {
         VERSION =  "0.1.0"
         VERSION_RC = "rc.2"
+        GBRANCH = "feature-branch-01"
     }
 
     stages {
@@ -17,16 +18,15 @@ pipeline {
         }
         stage('Build') {
             agent {
-                docker {
-                    image 'alpine:latest' args "-v /var/run/docker.sock:/var/run/docker.sock" 
-                }
+                docker { image 'alpine:latest' }
             }
+            environment { VERSION_SUFFIX = getVersionSuffix() }
             steps {
-                echo "Executing Build Number: $BUILD_NUMBER"
+                echo "Building version: ${VERSION} with suffix version ${VERSION_SUFFIX}"
                 echo 'Collecting resources...'
                 echo 'Building binaries...'
-                echo 'Archiving all artifacts...'
 
+                echo 'Archiving all artifacts...'
                 //archiveArtifacts 'full.bin'
             }
         }
@@ -34,9 +34,7 @@ pipeline {
             parallel {
                 stage('Module Test 1') {
                     agent {
-                        docker {
-                            image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7'
-                        }
+                        docker { image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7' }
                     }
                     steps {
                         echo 'Running ModuleTest1...'
@@ -46,9 +44,7 @@ pipeline {
                 }
                 stage('Unit Test 1') {                    
                     agent {
-                        docker {
-                            image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7'
-                        }
+                        docker { image 'artifactory.ap.manulife.com/docker/devops-ci-image:2.5.7' }
                     }
                     steps {
                         echo 'Running Unit Test 1...'
@@ -63,15 +59,15 @@ pipeline {
                 message "Merge now?"
                 ok 'Do it!'
                 parameters {
-                    string(name: "TARGET BRANCH", defaultValue: "feature-branch01", description: "Target branch")
+                    string(name: "TARGET BRANCH", defaultValue: "${GBRANCH}", description: "Target branch")
                 }
             }
             steps {
-                echo "Deploying to commit feature-branch01" 
+                echo "Deploying commit to branch: ${GBRANCH}" 
             }
             post {
                 success {
-                    echo "Change Integration to feature-branch01 Approved!"
+                    echo "Change Integration to ${GBRANCH} Approved!"
                     mail bcc: '', body: 'Change Commit approved and merged!!! \nPlease disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
                 }
                 aborted {
