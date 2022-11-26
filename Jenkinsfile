@@ -27,7 +27,7 @@ pipeline {
                 echo 'Building binaries...'
                 echo 'Archiving all artifacts...'
 
-                archiveArtifacts 'full.bin'
+                //archiveArtifacts 'full.bin'
             }
         }
         stage('Test') {
@@ -41,7 +41,7 @@ pipeline {
                     steps {
                         echo 'Running ModuleTest1...'
                         writeFile file: 'mt-test-results.txt', text: 'passed'
-                        archiveArtifacts '/etc/mt-test-results.txt'
+                        //archiveArtifacts '/etc/mt-test-results.txt'
                     }
                 }
                 stage('Unit Test 1') {                    
@@ -53,15 +53,15 @@ pipeline {
                     steps {
                         echo 'Running Unit Test 1...'
                         writeFile file: 'ut-test-results.txt', text: 'passed'
-                        archiveArtifacts '/etc/ut-test-results.txt'
+                        //archiveArtifacts '/etc/ut-test-results.txt'
                     }
                 }
             }
         }
         stage('Approved Prod Deploy') {
             input {
-                message "Merge?"
-                ok 'Approve!'
+                message "Merge now?"
+                ok 'Do it!'
                 parameters {
                     string(name: "TARGET BRANCH", defaultValue: "feature-branch01", description: "Target branch")
                 }
