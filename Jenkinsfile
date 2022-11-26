@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'alpine:latest' args "-u devops:docker --previleged -v /var/run/docker.sock:/var/run/docker.sock" 
+                    image 'alpine:latest' args "-v /var/run/docker.sock:/var/run/docker.sock" 
                 }
             }
             steps {
