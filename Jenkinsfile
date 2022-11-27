@@ -11,11 +11,14 @@ pipeline {
     }
 
     stages {
-        stage('Audit Tools') {
-            steps {
-                getAllToolVersions()
-            }
-        }
+        // stage('Audit Tools') {
+        //     agent {
+        //         docker { image 'alpine:latest' }
+        //     }
+        //     steps {
+        //         getAllToolVersions()
+        //     }
+        // }
         stage('Build') {
             agent {
                 docker { image 'alpine:latest' }
@@ -23,6 +26,7 @@ pipeline {
             environment { VERSION_SUFFIX = getVersionSuffix() }
             steps {
                 echo "Building version: ${VERSION} with suffix version ${VERSION_SUFFIX}"
+                getAllToolVersions()
                 echo 'Collecting resources...'
                 echo 'Building binaries...'
 
@@ -68,10 +72,11 @@ pipeline {
             post {
                 success {
                     echo "Integration approved!"
-                    mail bcc: '', body: 'Change Commit approved and merged!!! \nPlease disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
+                    mail bcc: '', body: 'Change integration has been granted!! \nPlease disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
                 }
                 aborted {
                     echo "Change Integration Denied"
+                    mail bcc: '', body: 'Change integration has been denied!!! \nPlease disregard! This is just a test.', cc: '', from: '', replyTo: '', subject: 'Test Mail using Jenkins Pipeline', to: 'Syd_Pachica@manulife.com'
                 }
             }
         }
