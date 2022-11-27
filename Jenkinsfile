@@ -59,11 +59,11 @@ pipeline {
                 message "Merge now?"
                 ok 'Do it!'
                 parameters {
-                    string(name: "TARGET BRANCH", defaultValue: "${GIT_BRANCH}", description: "Target branch")
+                    string(name: "TARGET BRANCH", defaultValue: "master", description: "Target branch")
                 }
             }
             steps {
-                echo "Deploying commit to branch: ${GIT_BRANCH}" 
+                echo "Deploying commit to master branch." 
             }
             post {
                 success {
