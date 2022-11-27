@@ -11,14 +11,6 @@ pipeline {
     }
 
     stages {
-        // stage('Audit Tools') {
-        //     agent {
-        //         docker { image 'alpine:latest' }
-        //     }
-        //     steps {
-        //         getAllToolVersions()
-        //     }
-        // }
         stage('Build') {
             agent {
                 docker { image 'alpine:latest' }
