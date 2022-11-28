@@ -7,7 +7,6 @@ pipeline {
     environment {
         VERSION =  "0.1.0"
         VERSION_RC = "rc.2"
-        GBRANCH = "feature-branch-01"
     }
 
     stages {
