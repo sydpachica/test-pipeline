@@ -17,7 +17,7 @@ pipeline {
                 docker { image 'alpine:latest' }
             }
 
-            def commonMethods = new CommonMethods(this)
+            def commonMethods = load "src/com/manulife/ap/jenkins/CommonMethods.groovy"
 
             environment { VERSION_SUFFIX = commonMethods.getVersionSuffix() }
             steps {
