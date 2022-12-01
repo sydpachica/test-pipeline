@@ -7,8 +7,8 @@ public class CommonMethods {
 
     public void getAllToolVersions() {
         this.scriptObj.echo 'Get all tool versions...'
-        this.scriptObj.sh 'git --version'
-        this.scriptObj.sh 'dotnet --version'
+        this.scriptObj.echo 'git --version'
+        this.scriptObj.echo 'dotnet --version'
     }
     
 }
