@@ -19,7 +19,12 @@ pipeline {
                 docker { image 'alpine:latest' }
             }
 
-            environment { VERSION_SUFFIX = commonMethods.getVersionSuffix() }
+            environment { 
+                script { 
+                    VERSION_SUFFIX = commonMethods.getVersionSuffix() 
+                }
+            }
+            
             steps {
                 echo "Building version: ${VERSION} with suffix version ${VERSION_SUFFIX}"
                 commonMethods.getAllToolVersions()
