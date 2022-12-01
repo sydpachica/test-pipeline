@@ -1,4 +1,4 @@
-import com.manulife.ap.jenkins.CommonMethods
+//import com.manulife.ap.jenkins.CommonMethods
 
 pipeline {
     agent none
@@ -17,7 +17,8 @@ pipeline {
                 docker { image 'alpine:latest' }
             }
 
-            def commonMethods = load "src/com/manulife/ap/jenkins/CommonMethods.groovy"
+            //def commonMethods = load "src/com/manulife/ap/jenkins/CommonMethods.groovy"
+            def commonMethods = new CommonMethods(this)
 
             environment { VERSION_SUFFIX = commonMethods.getVersionSuffix() }
             steps {
