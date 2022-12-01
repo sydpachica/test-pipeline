@@ -1,7 +1,5 @@
 import com.manulife.ap.jenkins.CommonMethods
 
-def commonMethods = new CommonMethods(this)
-
 pipeline {
     agent none
 
@@ -23,7 +21,12 @@ pipeline {
 
             steps {
                 echo "Building version: ${VERSION} with suffix version ${VERSION_SUFFIX}"
-                commonMethods.getAllToolVersions()
+                
+                script {
+                    def commonMethods = new CommonMethods(this)
+                    commonMethods.getAllToolVersions()
+                }
+                
                 echo 'Collecting resources...'
                 echo 'Building binaries...'
 
