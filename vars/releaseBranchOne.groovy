@@ -17,19 +17,22 @@ pipeline {
                 docker { image 'alpine:latest' }
             }
 
-            environment { VERSION_SUFFIX = getVersionSuffix() }
+            environment { 
+                script {
+                    def commonMethods1 = new CommonMethods(this)
+                    VERSION_SUFFIX = commonMethods1.getVersionSuffix()
+                }
 
             steps {
-                echo "Building version: ${VERSION} with suffix version ${VERSION_SUFFIX}"
-                
                 script {
-                    def commonMethods = new CommonMethods(this)
-                    commonMethods.getAllToolVersions()
+                    echo "Building version: ${VERSION} with suffix version ${VERSION_SUFFIX}"
+
+                    def commonMethods2 = new CommonMethods(this)
+                    commonMethods2.getAllToolVersions()
                 }
-                
+
                 echo 'Collecting resources...'
                 echo 'Building binaries...'
-
                 echo 'Archiving all artifacts...'
                 //archiveArtifacts 'full.bin'
             }
@@ -80,13 +83,5 @@ pipeline {
                 }
             }
         }
-    }
-}
-
-String getVersionSuffix() {
-    if (params.RC) {
-        return env.VERSION_RC
-    } else {
-        return env.VERSION_RC + '_ci.' + env.BUILD_NUMBER
     }
 }
