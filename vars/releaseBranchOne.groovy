@@ -1,4 +1,5 @@
 import com.manulife.ap.jenkins.CommonMethods
+
 def commonMethods = new CommonMethods(this)
 
 pipeline {
