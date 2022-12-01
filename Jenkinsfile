@@ -1,4 +1,5 @@
-import com.manulife.ap.jenkins.CommonMethods
+import com.manulife.ap.jenkins.*
+
 def commonMethods = new CommonMethods(this)
 
 pipeline {
