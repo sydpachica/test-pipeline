@@ -22,6 +22,7 @@ pipeline {
                     def commonMethods1 = new CommonMethods(this)
                     VERSION_SUFFIX = commonMethods1.getVersionSuffix()
                 }
+            }
 
             steps {
                 script {
