@@ -1,4 +1,4 @@
-//import com.manulife.ap.jenkins.CommonMethods
+import com.manulife.ap.jenkins.CommonMethods
 
 pipeline {
     agent none
