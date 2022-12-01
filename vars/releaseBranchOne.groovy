@@ -17,12 +17,7 @@ pipeline {
                 docker { image 'alpine:latest' }
             }
 
-            environment { 
-                script {
-                    def commonMethods1 = new CommonMethods(this)
-                    VERSION_SUFFIX = commonMethods1.getVersionSuffix()
-                }
-            }
+            environment { VERSION_SUFFIX = getVersionSuffix() }
 
             steps {
                 script {
@@ -84,5 +79,13 @@ pipeline {
                 }
             }
         }
+    }
+}
+
+String getVersionSuffix() {
+    if (params.RC) {
+        return env.VERSION_RC
+    } else {
+        return env.VERSION_RC + '_ci.' + env.BUILD_NUMBER
     }
 }
