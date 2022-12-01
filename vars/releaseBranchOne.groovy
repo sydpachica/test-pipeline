@@ -1,7 +1,5 @@
 import com.manulife.ap.jenkins.CommonMethods
 
-def commonMethods = new CommonMethods(this)
-
 pipeline {
     agent none
 
@@ -18,6 +16,8 @@ pipeline {
             agent {
                 docker { image 'alpine:latest' }
             }
+
+            def commonMethods = new CommonMethods(this)
 
             environment { VERSION_SUFFIX = commonMethods.getVersionSuffix() }
             steps {

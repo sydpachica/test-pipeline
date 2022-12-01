@@ -1,14 +1,7 @@
 package com.manulife.ap.jenkins
-import java.text.SimpleDateFormat
 
 public class CommonMethods {
-
-    static Script scriptObj
-
-    CommonMethods(Script scriptObj) {
-        this.scriptObj = scriptObj
-    }
-
+    
     public String getVersionSuffix() {
         if (params.RC) {
             return env.VERSION_RC
