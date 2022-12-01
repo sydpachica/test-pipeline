@@ -1,4 +1,4 @@
-import com.manulife.ap.jenkins.*
+import com.manulife.ap.jenkins.CommonMeth
 
 def commonMethods = new CommonMethods(this)
 
